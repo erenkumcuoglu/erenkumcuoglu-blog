@@ -6,7 +6,7 @@
 
 [[redirects]]
   from = "/blog"
-  to = "https://heartfelt-dasik-167702.netlify.app/blog/:splat"
+  to = "https://erenkumcuoglublog.netlify.app/blog/:splat"
   status = 200
   force = true
 [build]
