@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section class="blog-hero">
+  <h1>{{ .Title }}</h1>
+  <p class="hero-subtitle">Bu kategoride {{ len .Pages }} yazı bulunuyor.</p>
+  <a href="{{ .Site.BaseURL }}" class="back-link">← Tüm yazılar</a>
+</section>
+
+<div class="posts-grid">
+  {{ range .Pages }}
+  <article class="post-card">
+    <a href="{{ .Permalink }}">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan 2006" }}</time>
+      <h3>{{ .Title }}</h3>
+      <p class="post-excerpt">{{ .Summary | plainify | truncate 120 }}</p>
+    </a>
+  </article>
+  {{ end }}
+</div>
+{{ end }}

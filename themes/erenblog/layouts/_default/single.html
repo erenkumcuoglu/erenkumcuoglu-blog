@@ -1,0 +1,35 @@
+{{ define "main" }}
+<article class="post-single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time>
+      {{ with .Params.categories }}
+        <span class="meta-sep">·</span>
+        {{ range . }}<a href="{{ "/categories/" | absURL }}{{ . | urlize }}/" class="post-category">{{ . }}</a>{{ end }}
+      {{ end }}
+    </div>
+    <h1>{{ .Title }}</h1>
+  </header>
+
+  <div class="post-content prose">
+    {{ .Content }}
+  </div>
+
+  <footer class="post-footer">
+    <div class="post-nav">
+      {{ with .PrevInSection }}
+        <a href="{{ .Permalink }}" class="nav-prev">
+          <span class="nav-label">← Önceki</span>
+          <span class="nav-title">{{ .Title | truncate 50 "..." }}</span>
+        </a>
+      {{ end }}
+      {{ with .NextInSection }}
+        <a href="{{ .Permalink }}" class="nav-next">
+          <span class="nav-label">Sonraki →</span>
+          <span class="nav-title">{{ .Title | truncate 50 "..." }}</span>
+        </a>
+      {{ end }}
+    </div>
+  </footer>
+</article>
+{{ end }}

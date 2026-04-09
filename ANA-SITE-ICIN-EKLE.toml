@@ -1,0 +1,30 @@
+# Ana Site (erenkumcuoglu.com) İçin Gerekli Değişiklik
+# ====================================================
+#
+# Ana sitenin repo'sundaki netlify.toml dosyasına
+# aşağıdaki satırları DOSYANIN EN BAŞINA ekle.
+#
+# NOT: "BLOG-SITE-ADI" kısmını, blog sitesini Netlify'a
+# deploy ettikten sonra aldığın URL ile değiştir.
+# Örnek: silly-fox-123456.netlify.app
+#
+# Bu kural "rewrite" yapar — kullanıcı URL çubuğunda
+# sadece erenkumcuoglu.com/blog/ görür.
+# Google da bunu ana sitenin parçası olarak indeksler.
+# SEO otoritesi bölünmez.
+
+# ---- BUNU ANA SİTENİN netlify.toml DOSYASINA EKLE ----
+
+[[redirects]]
+  from = "/blog/*"
+  to = "https://BLOG-SITE-ADI.netlify.app/blog/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "https://BLOG-SITE-ADI.netlify.app/blog/"
+  status = 200
+  force = true
+
+# ---- EKLEME SONU ----

@@ -1,0 +1,15 @@
+{{ define "main" }}
+<section class="blog-hero">
+  <h1>Kategoriler</h1>
+  <a href="{{ .Site.BaseURL }}" class="back-link">← Tüm yazılar</a>
+</section>
+
+<div class="categories-grid">
+  {{ range .Data.Terms.Alphabetical }}
+  <a href="{{ .Page.Permalink }}" class="category-card">
+    <h3>{{ .Page.Title }}</h3>
+    <span class="cat-count">{{ .Count }} yazı</span>
+  </a>
+  {{ end }}
+</div>
+{{ end }}

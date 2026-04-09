@@ -1,0 +1,25 @@
+[build]
+  publish = "public"
+  command = "hugo --minify --verbose"
+
+[build.environment]
+  HUGO_VERSION = "0.128.0"
+  HUGO_EXTENDED = "true"
+
+# Headers for performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/blog/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/blog/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

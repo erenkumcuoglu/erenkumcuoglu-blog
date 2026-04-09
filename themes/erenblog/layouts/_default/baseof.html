@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ .Title }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+
+  <!-- RSS -->
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ end -}}
+
+  <link rel="canonical" href="{{ .Permalink }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ "css/style.css" | absURL }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="{{ .Site.Params.mainSiteURL }}" class="site-logo">Eren Kumcuoğlu</a>
+      <nav class="site-nav">
+        {{ range .Site.Menus.main }}
+          <a href="{{ .URL }}" {{ if eq .Name "Ana Sayfa" }}target="_self"{{ end }}>{{ .Name }}</a>
+        {{ end }}
+      </nav>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      {{ block "main" . }}{{ end }}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; {{ now.Year }} Eren Kumcuoğlu. Tüm hakları saklıdır.</p>
+      <div class="footer-links">
+        <a href="{{ .Site.Params.social.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="{{ .Site.BaseURL }}index.xml">RSS</a>
+        <a href="{{ .Site.Params.mainSiteURL }}">Ana Sayfa</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-toggle')?.addEventListener('click', function() {
+      document.querySelector('.site-nav').classList.toggle('open');
+      this.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

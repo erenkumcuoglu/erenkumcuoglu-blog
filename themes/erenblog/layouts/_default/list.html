@@ -1,0 +1,43 @@
+{{ define "main" }}
+<section class="blog-hero">
+  <h1>Blog</h1>
+  <p class="hero-subtitle">Pazarlama, dijital strateji, farklılaşma ve iş dünyası üzerine düşünceler.<br>
+  <span class="hero-meta">2007'den bu yana {{ len site.RegularPages }} yazı</span></p>
+</section>
+
+<!-- Category filter -->
+<section class="category-filter">
+  <a href="{{ site.BaseURL }}" class="cat-pill {{ if .IsHome }}active{{ end }}">Tümü</a>
+  {{ range site.Taxonomies.categories }}
+    <a href="{{ .Page.Permalink }}" class="cat-pill">{{ .Page.Title }} <span class="cat-count">{{ .Count }}</span></a>
+  {{ end }}
+</section>
+
+<!-- Year groups -->
+{{ $pages := .Paginator.Pages }}
+{{ $byYear := $pages.GroupByDate "2006" }}
+{{ range $byYear }}
+<section class="year-group">
+  <h2 class="year-heading">{{ .Key }}</h2>
+  <div class="posts-grid">
+    {{ range .Pages }}
+    <article class="post-card">
+      <a href="{{ .Permalink }}">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 Jan" }}</time>
+        <h3>{{ .Title }}</h3>
+        <p class="post-excerpt">{{ .Summary | plainify | truncate 120 "..." }}</p>
+        {{ with .Params.categories }}
+        <div class="post-cats">
+          {{ range . }}<span class="cat-tag">{{ . }}</span>{{ end }}
+        </div>
+        {{ end }}
+      </a>
+    </article>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+<!-- Pagination -->
+{{ template "_internal/pagination.html" . }}
+{{ end }}
