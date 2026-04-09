@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/blog/*"
-  to = "https://BLOG-SITE-ADI.netlify.app/blog/:splat"
+  to = "https://erenkumcuoglublog.netlify.app/blog/:splat"
   status = 200
   force = true
 
